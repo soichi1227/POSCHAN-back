@@ -1,3 +1,5 @@
+# ワークフローを無視
+.github/workflows/
 # Python関連
 *.pyc
 __pycache__/
