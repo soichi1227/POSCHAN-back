@@ -8,9 +8,11 @@ app = FastAPI()
 
 from fastapi.middleware.cors import CORSMiddleware
 
+import os
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # フロントエンドを許可
+    allow_origins=["http://tech0-gen8-step4-pos-app-65.azurewebsites.net"],  # フロントエンドを許可
     allow_credentials=True,
     allow_methods=["*"],  # GET, POST などすべてのHTTPメソッドを許可
     allow_headers=["*"],  # すべてのHTTPヘッダーを許可
