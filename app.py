@@ -1,8 +1,11 @@
 from fastapi import FastAPI, HTTPException
 import sqlite3
+from sqlalchemy import  text
 from pydantic import BaseModel
 from datetime import datetime
 from typing import List
+from sqlalchemy.orm import sessionmaker
+from db_control.connect import engine
 
 app = FastAPI()
 
@@ -40,16 +43,32 @@ def read_root():
 # 商品検索API
 @app.get("/product/{code}")
 def get_product(code: str):
-    conn = sqlite3.connect("pos_app.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT id, name, price FROM product_master WHERE code = ?", (code,))
-    product = cursor.fetchone()
-    conn.close()
+    # セッションの構築
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    # SQLを直接実行
+    result = session.execute(
+    text("SELECT id, name, price FROM m_product_sou WHERE code = :code"), 
+        {"code": code}  
+    )
+    # 最初の行を取得
+    product = result.fetchone()
+    
+    # conn = sqlite3.connect("pos_app.db")
+    # cursor = conn.cursor()
+    # cursor.execute("SELECT id, name, price FROM product_master WHERE code = ?", (code,))
+    # product = cursor.fetchone()
+    # conn.close()
 
+    # セッションを閉じる
+    session.close()
+    print(product)
     if product:
         return {"id": product[0], "name": product[1], "price": product[2]}
     else:
         raise HTTPException(status_code=404, detail="商品が見つかりません")
+    
+    
 
 # 購入API
 @app.post("/purchase")
