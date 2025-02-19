@@ -6,7 +6,7 @@ import atexit
 from dotenv import load_dotenv
 
 load_dotenv()
-CONNECT = os.getenv("CONNECT_MODE")
+# CONNECT = os.getenv("CONNECT_MODE")
 DATABASE_URL = os.getenv("DB_URL")
 pem_content = os.getenv("SSL_CA_STR")
 

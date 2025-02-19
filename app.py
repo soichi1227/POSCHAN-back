@@ -48,7 +48,7 @@ def get_product(code: str):
     session = Session()
     # SQLを直接実行
     result = session.execute(
-    text("SELECT id, name, price FROM m_product_sou WHERE code = :code"), 
+    text("SELECT PRD_ID, NAME, PRICE FROM m_product_sou WHERE CODE = :code"), 
         {"code": code}  
     )
     # 最初の行を取得
@@ -83,7 +83,7 @@ def purchase(request: PurchaseRequest):
 
     total_amount = 0
     for item in request.items:
-        cursor.execute("SELECT id, name, price FROM product_master WHERE code = ?", (item.code,))
+        cursor.execute("SELECT PRD_ID, NAME, PRICE FROM m_product_sou WHERE CODE = ?", (item.code,))
         product = cursor.fetchone()
         if product:
             cursor.execute("INSERT INTO transaction_detail (transaction_id, product_id, product_code, product_name, product_price) VALUES (?, ?, ?, ?, ?)",
