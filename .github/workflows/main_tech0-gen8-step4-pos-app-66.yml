@@ -62,16 +62,6 @@ jobs:
       - name: Unzip artifact for deployment
         run: tar -xvf release.tar.gz
       
-<<<<<<< HEAD
-      # - name: Deploy to Azure Web App
-      #   id: deploy-to-webapp
-      #   uses: azure/webapps-deploy@v3
-      #   with:
-      #     app-name: 'tech0-gen8-step4-pos-app-66'
-      #     slot-name: 'Production'
-      #     package: .
-      #     publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4D975804D42A439A979612C642FF98B2 }}
-=======
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
@@ -80,4 +70,3 @@ jobs:
           slot-name: 'Production'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4D975804D42A439A979612C642FF98B2 }}
->>>>>>> 10e9ac4f6611ceab3498c44a6a38b8cb1c174b4d
